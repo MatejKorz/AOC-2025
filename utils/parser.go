@@ -47,3 +47,20 @@ func ParseDelim(path string, delim string) <-chan string {
 
 	return ch
 }
+
+func ParseGrid(path string) []string {
+	file, err := os.Open(path)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	var grid []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		grid = append(grid, line)
+	}
+
+	return grid
+}
